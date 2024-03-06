@@ -1,4 +1,4 @@
-﻿namespace Roteirizador.Domain.Entities
+﻿namespace Roteirizador.Domain
 {
     internal interface IEntity
     {
