@@ -3,8 +3,8 @@ using Roteirizador.Application.Output;
 
 namespace Roteirizador.Application.UseCases.Interfaces
 {
-    internal interface ICalcularRotaMaisBarataUseCase
+    public interface ICalcularRotaMaisBarataUseCase
     {
-        Task<ViagemOutput> Calcular(ViagemInput viagem);
+        Task<ViagemOutput> CalcularAsync(ViagemInput viagem);
     }
 }

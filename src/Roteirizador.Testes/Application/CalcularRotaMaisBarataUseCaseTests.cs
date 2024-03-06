@@ -1,8 +1,6 @@
 ﻿using Roteirizador.Application.Abstractions.Queries;
-using Roteirizador.Application.Command;
 using Roteirizador.Application.Input;
 using Roteirizador.Application.UseCases;
-using Roteirizador.Application.UseCases.Interfaces;
 using Roteirizador.Domain.Entities;
 
 namespace Roteirizador.Testes.Application
@@ -12,13 +10,13 @@ namespace Roteirizador.Testes.Application
     {
         private readonly IList<Rota> _rotasPossiveis = new List<Rota>()
         {
-            new Rota("GRU","BRC",10),
-            new Rota("BRC","SCL",5),
-            new Rota("GRU","CDG",75),
-            new Rota("GRU","SCL",20),
-            new Rota("GRU","ORL",56),
-            new Rota("ORL","CDG",5),
-            new Rota("SCL","ORL",20)
+            new Rota(null,"GRU","BRC",10),
+            new Rota(null,"BRC","SCL",5),
+            new Rota(null,"GRU","CDG",75),
+            new Rota(null,"GRU","SCL",20),
+            new Rota(null,"GRU","ORL",56),
+            new Rota(null,"ORL","CDG",5),
+            new Rota(null,"SCL","ORL",20)
         };
 
 
@@ -26,19 +24,19 @@ namespace Roteirizador.Testes.Application
         public async Task QuandoObterRotasPossiveisRetornarListaDeRotas()
         {
             //Arrange            
-            var obterRotaQueryMock = new Mock<IObterRotaQuery>();
-            var obterRotasPossiveisService = new ObterRotasPossiveisService();
+            var obterRotaQueryMock = new Mock<IRotaQuery>();
+            var calculoRotas = new CalculoRotas();
 
             obterRotaQueryMock.Setup(x => x.SelecionarTodosAsync())
                .ReturnsAsync(_rotasPossiveis);
 
 
-            var calcularRotaMaisBarataUseCase = new CalcularRotaMaisBarataUseCase(obterRotaQueryMock.Object, obterRotasPossiveisService);
+            var calcularRotaMaisBarataUseCase = new CalcularRotaMaisBarataUseCase(obterRotaQueryMock.Object, calculoRotas);
 
             var input = new ViagemInput() { Origem = "GRU", Destino = "CDG" };
 
             //Act
-            var result = await calcularRotaMaisBarataUseCase.Calcular(input);
+            var result = await calcularRotaMaisBarataUseCase.CalcularAsync(input);
 
             //Assert
             result.Should().NotBeNull();

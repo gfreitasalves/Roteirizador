@@ -1,0 +1,54 @@
+@Roteirizador.Api_HostAddress = http://localhost:5142
+
+
+//selecionar todos
+GET {{Roteirizador.Api_HostAddress}}/Rota/
+Accept: application/json
+
+###
+
+// Selecionar por id
+GET {{Roteirizador.Api_HostAddress}}/Rota/91c303ab-d069-44f9-b22d-af63acd3e63c
+Accept: application/json
+
+###
+
+//Inserir Rota
+POST {{Roteirizador.Api_HostAddress}}/Rota/
+Content-Type: application/json
+
+{  
+  "origem": "XPTO",
+  "destino": "XYZ",
+  "valor": "100"
+}
+###
+
+//Atualizar Rota
+PUT {{Roteirizador.Api_HostAddress}}/Rota/
+Content-Type: application/json
+
+{  
+  "id":"17ce05cd-632c-4bb8-96e7-63ca6de5a74c",
+  "origem": "GRU2",
+  "destino": "BRC",
+  "valor": "100"
+}
+###
+
+//Deletar Rota
+DELETE {{Roteirizador.Api_HostAddress}}/Rota/17ce05cd-632c-4bb8-96e7-63ca6de5a74c
+Accept: application/json
+
+###
+
+
+//Cálculo Rota
+POST {{Roteirizador.Api_HostAddress}}/CalcularRota/
+Content-Type: application/json
+
+{
+  "origem": "GRU",
+  "destino": "CDG"
+}
+###

@@ -1,9 +1,8 @@
-﻿using Roteirizador.Application.UseCases.Interfaces;
-using Roteirizador.Domain.Entities;
+﻿using Roteirizador.Domain.Entities;
 
-namespace Roteirizador.Application.Command
+namespace Roteirizador.Application.UseCases
 {
-    public class ObterRotasPossiveisService : IObterRotasPossiveisService
+    public class CalculoRotas : ICalculoRotas
     {
         public IList<IList<Rota>> ObterRotasPossiveis(string origem, string destino, IList<Rota> rotasPossiveis)
         {

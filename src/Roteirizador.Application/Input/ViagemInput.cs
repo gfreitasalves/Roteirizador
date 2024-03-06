@@ -1,4 +1,6 @@
-﻿namespace Roteirizador.Application.Input
+﻿using System.Drawing;
+
+namespace Roteirizador.Application.Input
 {
     public class ViagemInput
     {
