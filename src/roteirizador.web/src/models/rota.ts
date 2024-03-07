@@ -1,6 +1,7 @@
 export type Rota = {
-    id: string
+    id?: string
     origem: string
     destino: string
-    valor: number    
+    valor: number
 }
+

@@ -1,4 +1,4 @@
-@Roteirizador.Api_HostAddress = http://localhost:5142
+@Roteirizador.Api_HostAddress = https://localhost:5142
 
 
 //selecionar todos

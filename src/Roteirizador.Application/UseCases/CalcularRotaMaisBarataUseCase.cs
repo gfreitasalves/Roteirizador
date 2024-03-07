@@ -19,15 +19,39 @@ namespace Roteirizador.Application.UseCases
 
         public async Task<ViagemOutput> CalcularAsync(ViagemInput viagem)
         {
-            IList<Rota> rotas = await _obterRotaQuery.SelecionarTodosAsync();
+            string mensagem = string.Empty;
+            bool sucesso = true;
+            var rotaMenorValor = new List<RotaOutput>();
+            try
+            {
 
-            var rotasPosiveis = _calculoRotas.ObterRotasPossiveis(viagem.Origem, viagem.Destino, rotas);
 
-            //Obtem a rota de menor valor entre as possíveis
-            IList<RotaOutput> rotaMenorValor = rotasPosiveis.OrderBy(x => x.Sum(r => r.Valor)).First()
-                .Select(r=>new RotaOutput(r.Id,r.Origem,r.Destino,r.Valor)).ToList();
-                        
-            return new ViagemOutput(viagem.Origem, viagem.Destino, rotaMenorValor);
+                IList<Rota> rotas = await _obterRotaQuery.SelecionarTodosAsync();
+
+                var rotasPosiveis = _calculoRotas.ObterRotasPossiveis(viagem.Origem, viagem.Destino, rotas);
+
+                if (rotasPosiveis.Any())
+                {
+                    //Obtem a rota de menor valor entre as possíveis
+                    rotaMenorValor = rotasPosiveis.OrderBy(x => x.Sum(r => r.Valor)).First()
+                        .Select(r => new RotaOutput(r.Id, r.Origem, r.Destino, r.Valor)).ToList();
+                }
+                else
+                {
+                    sucesso = false;
+                    mensagem = "Não foram encontradas rotas com os parâmetros passados.";
+                }
+
+            }
+            //TODO: (Exception ex) Log Ex
+            catch
+            {
+
+                sucesso = false;
+                mensagem = "Ocorreu um erro ao calcular.";
+            }
+
+            return new ViagemOutput(viagem.Origem, viagem.Destino, mensagem, sucesso, rotaMenorValor);
         }
     }
 }
